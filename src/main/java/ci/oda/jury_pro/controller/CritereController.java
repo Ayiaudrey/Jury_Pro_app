@@ -34,28 +34,27 @@ public class CritereController {
         return critereService.getCritereByEvents(even_id);
     }
 
-    @GetMapping("/critères/{critere_id}")
+    @GetMapping("/criteres/{critere_id}")
     public Critères getCritere_id(@PathVariable Long critere_id) {
 
         return critereService.getCritere_id(critere_id);
 
     }
 
-    @PostMapping("/critères")
+    @PostMapping("/criteres")
     public ResponseEntity<?> createOrUpdatecritere(@RequestBody Critères critères) {
        
-		ResponseEntity<?> result = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        try {
-            if (!critereService.createOrUpdatecritere(critères)){
-                throw new Exception();
-            }
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-        catch (Exception e){
+        ResponseEntity<?> result = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
+        System.out.println(critères.getCritere_libelle());
+
+        critereService.createOrUpdatecritere(critères);
+        if (critereService.createOrUpdatecritere(critères)) {
+            result = new ResponseEntity<>(HttpStatus.OK);
         }
         return result;
-    }
+    } 
+
 
 
     @DeleteMapping("/critere/delete/{id}")

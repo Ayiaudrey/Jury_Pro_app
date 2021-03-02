@@ -1,6 +1,8 @@
 package ci.oda.jury_pro.Services;
 
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,12 @@ public class JuryService {
     public List<Jury> getAllJury() {
         return juryRepository.findAll();
     }
+
+    public  List<Map<String, Object>> getJuryByEvents(Long event_id) {
+        return juryRepository.listJuryparEvent(event_id);
+    }
+
+
     public Jury getJury_id (Long jury_id) {
         return juryRepository.getOne(jury_id);
     }
@@ -27,15 +35,18 @@ public class JuryService {
             try {
                 if (jury.getJury_id() > 0) {
                     Jury item = juryRepository.getOne(jury.getJury_id());
-                    result = true;
+                    
                     if (item == null) {
                         throw new Exception();
                     }
+                    result = true;
                 }
-                juryRepository.save(jury);
+              
             } catch (Exception e) {
                 System.err.println(e.getMessage());
             }
+            juryRepository.save(jury);
+
             return result;
         }
 

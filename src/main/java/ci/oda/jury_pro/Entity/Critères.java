@@ -10,8 +10,8 @@ public class Critères {
     private String critere_libelle;
     private String critere_bareme;
     private Long even_id;
+    
 
-   
 
     public Critères() {
     }

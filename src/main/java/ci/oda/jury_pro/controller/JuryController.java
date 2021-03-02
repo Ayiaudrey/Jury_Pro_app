@@ -1,6 +1,7 @@
 package ci.oda.jury_pro.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,13 @@ public class JuryController {
         return juryService.getAllJury();
     }
 
+
+    @GetMapping("/jury/event/{event_id}")
+    public List<Map<String, Object>> getAllJuryByEvent(@PathVariable long event_id) {
+        return juryService.getJuryByEvents(event_id);
+    }
+
+
     @GetMapping("/jury/{jury_id}")
     public Jury getJury_id(@PathVariable Long jury_id) {
 
@@ -40,13 +48,12 @@ public class JuryController {
     public ResponseEntity<?> createOrUpdateJury(@RequestBody Jury jury) {
        
 		ResponseEntity<?> result = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        try {
-            if (!juryService.createOrUpdateJury(jury)){
-                throw new Exception();
-            }
-        }
-        catch (Exception e){
+        
+        System.out.println(jury.getJury_nom_complet());
 
+        juryService.createOrUpdateJury(jury);
+        if (juryService.createOrUpdateJury(jury)) {
+            result = new ResponseEntity<>(HttpStatus.OK);
         }
         return result;
     }

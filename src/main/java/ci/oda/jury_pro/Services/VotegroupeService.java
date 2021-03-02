@@ -15,6 +15,8 @@ public class VotegroupeService {
     private VotegroupeRepository votegroupeRepository;
 
     
+
+
     public List<Vote_groupes> getAllVote_groupes() {
         return votegroupeRepository.findAll();
     }

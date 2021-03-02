@@ -13,7 +13,13 @@ public class VotecandidatService {
     @Autowired 
     private VotecandidatRepository votecandidatRepository;
 
-    
+public List<VoteDTO> getVoteCandidat (Long candidat_id, Long jury_id, Long evenement_id){
+        return votecandidatRepository.__findVoteByCandidatIdJuryIdAndEvenementId(candidat_id, jury_id, evenement_id);
+    }
+
+
+
+
     public List<Vote_candidats> getAllVoteCand() {
         return votecandidatRepository.findAll();
     }
@@ -27,15 +33,17 @@ public class VotecandidatService {
             try {
                 if (vote_candidat.getVote_candidat_id() > 0) {
                     Vote_candidats item = votecandidatRepository.getOne(vote_candidat.getVote_candidat_id());
-                    result = true;
+                    
                     if (item == null) {
                         throw new Exception();
                     }
+                    result = true;
                 }
-                votecandidatRepository.save(vote_candidat);
+                
             } catch (Exception e) {
                 System.err.println(e.getMessage());
             }
+            votecandidatRepository.save(vote_candidat);
             return result;
         }
 

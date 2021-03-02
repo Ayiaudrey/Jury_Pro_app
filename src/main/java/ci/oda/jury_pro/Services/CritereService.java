@@ -18,7 +18,6 @@ public class CritereService {
     private CritèreRepository critèreRepository;
 
 
-
     public  List<Map<String, Object>> getCritereByEvents(Long even_id) {
         return critèreRepository.listcritereparevent(even_id);
     }
@@ -36,15 +35,18 @@ public class CritereService {
             try {
                 if (critères.getCritere_id() > 0) {
                     Critères item = critèreRepository.getOne(critères.getCritere_id());
-                    result = true;
+                  
                     if (item == null) {
                         throw new Exception();
                     }
+                    result = true;
                 }
-                critèreRepository.save(critères);
+
             } catch (Exception e) {
                 System.err.println(e.getMessage());
             }
+            critèreRepository.save(critères);
+
             return result;
         }
 
